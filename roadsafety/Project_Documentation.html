@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuardianNodes RoadSoS — Comprehensive Project Documentation</title>
+    <style>
+        :root {
+            --primary: #0066cc;
+            --accent: #ff4757;
+            --teal: #00d2ff;
+            --green: #2ed573;
+            --dark: #0a0e1a;
+            --gray-bg: #f8fafc;
+            --border: #e2e8f0;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.65;
+            margin: 0;
+            padding: 0;
+            background-color: var(--gray-bg);
+        }
+        .container {
+            max-width: 960px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 45px 55px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 2.5em;
+            margin: 0 0 8px 0;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .subtitle {
+            font-size: 1.25em;
+            color: var(--text-muted);
+            margin: 0 0 15px 0;
+            font-weight: 500;
+        }
+        .badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: var(--primary);
+            font-size: 0.85em;
+            font-weight: 700;
+            padding: 4px 14px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .team-box {
+            background: #f1f5f9;
+            border-left: 5px solid var(--primary);
+            padding: 18px 24px;
+            border-radius: 6px;
+            margin: 25px 0 35px 0;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .team-grid div span {
+            display: block;
+            font-size: 0.8em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        .team-grid div strong {
+            font-size: 1.05em;
+            color: var(--text-dark);
+        }
+        h2 {
+            color: #0f172a;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 40px;
+            font-size: 1.55em;
+        }
+        h3 {
+            color: var(--primary);
+            margin-top: 24px;
+            font-size: 1.2em;
+        }
+        .module-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .module-card h4 {
+            margin: 0 0 10px 0;
+            color: #0f172a;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        ul {
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        code, pre {
+            font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+            background: #f1f5f9;
+            color: #0f172a;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        code {
+            padding: 2px 6px;
+        }
+        pre {
+            padding: 15px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+        .formula-box {
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            padding: 12px 18px;
+            border-radius: 6px;
+            margin: 12px 0;
+            font-family: monospace;
+            font-size: 0.95em;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 0.85em;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+        @media print {
+            body { background: #fff; padding: 0; }
+            .container { box-shadow: none; border: none; padding: 0; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🚨 GuardianNodes RoadSoS</h1>
+        <p class="subtitle">AI-Powered Emergency Road Accident Response, Dynamic Routing & V2X Mesh System</p>
+        <span class="badge">Delhi NCR Emergency CAD Implementation</span>
+    </div>
+
+    <div class="team-box">
+        <h3 style="margin: 0 0 10px 0; color: var(--primary);">Mini-Project Academic Metadata</h3>
+        <div class="team-grid">
+            <div>
+                <span>Team Name</span>
+                <strong>Coders</strong>
+            </div>
+            <div>
+                <span>Team Leader</span>
+                <strong>Rohit Singh</strong>
+            </div>
+            <div>
+                <span>Project Contributors</span>
+                <strong>Shawsti Singh, Utsav</strong>
+            </div>
+            <div>
+                <span>Domain</span>
+                <strong>Intelligent Transportation (ITS) / CAD</strong>
+            </div>
+        </div>
+    </div>
+
+    <h2>1. Executive Summary & Problem Statement</h2>
+    <p>
+        In trauma and emergency medicine, the <strong>"Golden Hour"</strong> dictates that medical intervention within the first 60 minutes after an accident drastically reduces mortality and long-term morbidity. However, municipal dispatch control centers suffer from severe operational friction:
+    </p>
+    <ul>
+        <li><strong>Inaccurate Witness Triage:</strong> Distressed callers provide fragmented or panicked accounts, causing dispatchers to misjudge crash severity or send inadequate resources.</li>
+        <li><strong>Static or Suboptimal Navigation:</strong> Conventional GPS tools do not account for vehicle-specific physical road constraints (e.g. heavy fire tenders cannot navigate narrow service alleys).</li>
+        <li><strong>Communication Blackouts:</strong> Highway accidents or major disasters frequently disable cellular towers, preventing casualty telemetry from reaching the hospital network.</li>
+    </ul>
+    <p>
+        <strong>GuardianNodes RoadSoS</strong> solves this with an integrated Computer-Aided Dispatch (CAD) system combining Natural Language Processing, dynamic graph algorithms, and decentralized vehicular ad-hoc networks.
+    </p>
+
+    <h2>2. System Architecture & Key Modules</h2>
+
+    <div class="module-card">
+        <h4>🧠 A. Multi-Modal Intelligent Triage Engine</h4>
+        <p>
+            Performs instant semantic analysis on witness statements and fused multi-modal evidence tags:
+        </p>
+        <ul>
+            <li><strong>Zero-Shot NLP Classification:</strong> Classifies incidents into 5 emergency categories: <em>Fire/Explosion, Critical Medical Trauma, Minor Collision, Hazardous Material Leak, and Vehicle Entrapment</em>.</li>
+            <li><strong>Entity Extraction (NER):</strong> Identifies vehicle quantities, casualty numbers, fire mentions, hazardous substances, and entrapment indicators via compiled regular expressions.</li>
+            <li><strong>Negation Handling:</strong> Parses semantic negations (e.g., <em>"no injuries reported"</em> or <em>"zero casualties"</em>) to prevent high-urgency false alarms.</li>
+            <li><strong>Mathematical Urgency Index:</strong> Calculates a continuous priority index bounded in [1.00, 10.00] using a sigmoid activation function:</li>
+        </ul>
+        <div class="formula-box">
+            Base_Score = &Sigma; (Classification_Score_i &times; Severity_Weight_i)<br>
+            Raw_Urgency = Sigmoid(Base_Score &times; 6.0 - 3.0) &times; 9.0 + 1.0<br>
+            Final_Urgency = Clamp(Raw_Urgency + Casualty_Bonus + Hazard_Bonus, 1.00, 10.00)
+        </div>
+        <ul>
+            <li><strong>Golden Hour SLA Window:</strong> Maps urgency to strict response deadlines: Critical (&le; 8 min), High (&le; 12 min), Moderate (&le; 20 min).</li>
+        </ul>
+    </div>
+
+    <div class="module-card">
+        <h4>🗺️ B. Dynamic Traffic-Aware Dijkstra Routing Engine</h4>
+        <p>
+            Builds and maintains a synthetic municipal directed road network mapped to Delhi NCR landmarks:
+        </p>
+        <ul>
+            <li><strong>Network Topology:</strong> 10&times;10 directed graph (100 nodes, ~180 directed edges) with highway, arterial, local, and service corridors.</li>
+            <li><strong>GPS Nearest-Node Snapping:</strong> Computes Euclidean/Haversine distance to map raw witness GPS coordinates (lat, lon) to the nearest road intersection.</li>
+            <li><strong>Vehicle-Specific Cost Function:</strong> Different response vehicles (Fire Tenders, CATS Ambulances, Highway Patrol, HazMat Units, Motorbike Medics) experience specialized road penalties:</li>
+        </ul>
+        <div class="formula-box">
+            Edge_Weight = Base_Distance &times; Road_Type_Multiplier &times; Traffic_Congestion_Multiplier &times; Vehicle_Penalty
+        </div>
+        <ul>
+            <li><strong>Two-Leg Coordination:</strong> Simultaneously plots the primary route (Depot &rarr; Crash Site) and the secondary evacuation route (Crash Site &rarr; Nearest Capable Trauma Center).</li>
+        </ul>
+    </div>
+
+    <div class="module-card">
+        <h4>📡 C. Decentralized BLE / V2X Mesh Network Simulator</h4>
+        <p>
+            Ensures continuous telemetry flow even when cellular 4G/5G connectivity is completely offline:
+        </p>
+        <ul>
+            <li><strong>Compact 24-Byte Binary Frame:</strong> Packed using Python <code>struct</code> format <code>!fffIHBB</code>: Latitude (4B), Longitude (4B), Urgency (4B), Timestamp (4B), Sequence (2B), Flags (1B), Reserved (1B), and CRC-32 (4B).</li>
+            <li><strong>Multi-Hop Vehicular Ad-Hoc Network (VANET):</strong> Relays packets through passing ambulances, police patrol cars, transit buses, and smart Roadside Units (RSUs).</li>
+            <li><strong>Integrity Verification & Healing:</strong> Every hop validates the 32-bit CRC checksum. If bit-flips or RF packet loss occur, up to 3 automatic retransmissions are triggered.</li>
+            <li><strong>Common Alerting Protocol (CAP):</strong> Produces OASIS / ITU-T X.1303 compliant JSON alerts for national emergency systems (ERSS 112).</li>
+        </ul>
+    </div>
+
+    <div class="module-card">
+        <h4>🏥 D. Regional Trauma Center & Hospital Readiness Fleet</h4>
+        <p>
+            Coordinates live resource matching with premier tertiary trauma hospitals in Delhi NCR:
+        </p>
+        <ul>
+            <li><strong>AIIMS Apex Trauma Centre:</strong> Level-1 Apex Trauma Institute (Specialized Neuro & Polytrauma).</li>
+            <li><strong>Safdarjung Hospital Emergency Block:</strong> Level-1 Specialized Burns & Critical Trauma.</li>
+            <li><strong>Dr. Ram Manohar Lohia (RML) Hospital:</strong> Level-2 Central Regional Facility.</li>
+            <li><strong>Max Super Speciality Saket:</strong> Level-1 Advanced Cardiac & Neuro Facility.</li>
+            <li>Tracks available ICU beds, active trauma bays, blood bank supplies, and direct dispatch hotlines.</li>
+        </ul>
+    </div>
+
+    <h2>3. Technology Stack</h2>
+    <ul>
+        <li><strong>Frontend & UI:</strong> Streamlit 1.67 featuring responsive dark glassmorphism design.</li>
+        <li><strong>Runtime Environment:</strong> Python 3.14 (64-bit) with localized isolated virtual environment.</li>
+        <li><strong>Graph & Pathfinding Algorithms:</strong> NetworkX 3.7 (Dijkstra Shortest Path, Single-Source Dijkstra).</li>
+        <li><strong>AI & Natural Language Processing:</strong> HuggingFace Transformers, Regex Semantic Tokenizer.</li>
+        <li><strong>Data Visualization:</strong> Plotly 7.1 (Dark Scattermapbox, Polar Radar Charts, Spline Telemetry).</li>
+        <li><strong>Networking & Serialization:</strong> Python Struct (Binary Packing), Binascii (CRC-32 Checksum), JSON.</li>
+        <li><strong>Automated Export Suite:</strong> FPDF (Automated PDF Report), Python-PPTX (Automated Slide Presentation).</li>
+    </ul>
+
+    <h2>4. How to Run the Project</h2>
+    <pre><code># 1. Activate localized virtual environment
+.\roadsafety\venv\Scripts\activate
+
+# 2. Launch the Streamlit CAD Dashboard
+streamlit run roadsafety\app.py
+
+# Or simply double-click run.bat in the project root!</code></pre>
+
+    <div class="footer">
+        GuardianNodes RoadSoS v2.5 | Team Coders (Rohit Singh, Shawsti Singh, Utsav) | Mini-Project Submission
+    </div>
+</div>
+
+</body>
+</html>

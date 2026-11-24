@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  roadsos:
+    build: .
+    container_name: guardiannodes_roadsos
+    restart: unless-stopped
+    ports:
+      - "8000:8000"   # Public SOS, Driver PWA, Hospital Portal, API & WebSockets
+      - "8501:8501"   # Streamlit CAD Control Room
+    volumes:
+      - roadsos_data:/app/roadsafety/data
+    environment:
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  roadsos_data:

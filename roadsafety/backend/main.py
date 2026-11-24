@@ -95,6 +95,11 @@ def health_check():
 frontend_dist = BASE_DIR / "frontend" / "dist"
 if frontend_dist.exists():
     app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="frontend")
+else:
+    from fastapi.responses import HTMLResponse
+    @app.get("/", response_class=HTMLResponse)
+    def index_fallback():
+        return """<!DOCTYPE html><html><head><title>GuardianNodes RoadSoS</title></head><body style="font-family:sans-serif;background:#0f172a;color:#f8fafc;padding:40px;text-align:center;"><h1>🚨 GuardianNodes RoadSoS Ecosystem</h1><p>Central API Gateway is Online.</p><p><a href="/docs" style="color:#38bdf8;font-size:18px;">Open Interactive API Docs &rarr;</a></p></body></html>"""
 
 
 @app.on_event("startup")

@@ -7,6 +7,8 @@ __pycache__/
 build/
 develop-eggs/
 dist/
+!roadsafety/frontend/dist/
+!roadsafety/frontend/dist/**
 downloads/
 eggs/
 .eggs/

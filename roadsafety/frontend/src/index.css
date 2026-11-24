@@ -78,7 +78,7 @@ body {
 }
 
 .leaflet-tile {
-  filter: brightness(0.7) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3);
+  border-radius: 4px;
 }
 
 /* Status Badges */

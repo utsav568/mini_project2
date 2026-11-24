@@ -450,7 +450,23 @@ def render_command_center(routing_engine, mesh_sim):
 
     with col_main:
         st.markdown('<div class="op-panel">', unsafe_allow_html=True)
-        st.markdown('<div class="panel-header">🗺️ LIVE TACTICAL ROAD NETWORK MAP (DELHI NCR COMMAND)</div>', unsafe_allow_html=True)
+        m_title, m_style = st.columns([3, 2])
+        with m_title:
+            st.markdown('<div class="panel-header" style="margin-bottom:0;">🗺️ REAL-WORLD ROAD NETWORK MAP (DELHI NCR)</div>', unsafe_allow_html=True)
+        with m_style:
+            map_style_choice = st.selectbox(
+                "Map Layer",
+                ["🗺️ Real-World OpenStreetMap", "🏙️ Carto Positron (Clear Streets)", "🌑 Tactical Dark Mode"],
+                index=0,
+                label_visibility="collapsed",
+                key="dash_map_style",
+            )
+        style_map = {
+            "🗺️ Real-World OpenStreetMap": "open-street-map",
+            "🏙️ Carto Positron (Clear Streets)": "carto-positron",
+            "🌑 Tactical Dark Mode": "carto-darkmatter",
+        }
+        active_map_style = style_map.get(map_style_choice, "open-street-map")
 
         incidents = get_all_incidents(limit=25)
         vehicles = get_all_vehicles()
@@ -519,7 +535,7 @@ def render_command_center(routing_engine, mesh_sim):
             margin=dict(l=0, r=0, t=0, b=0),
             height=380,
             map=dict(
-                style="carto-darkmatter",
+                style=active_map_style,
                 center=dict(lat=28.595, lon=77.215),
                 zoom=11.6,
             ),
@@ -780,13 +796,26 @@ def render_incident_management(routing_engine):
 def render_live_map(routing_engine):
     st.markdown('<div class="cad-header"><div class="cad-title">🗺️ INTERACTIVE EMERGENCY TACTICAL MAP & CORRIDORS</div></div>', unsafe_allow_html=True)
 
-    c1, c2, c3 = st.columns([1, 1, 1])
+    c1, c2, c3, c4 = st.columns([1, 1, 1, 1.3])
     with c1:
         show_incidents = st.checkbox("Show Active Crashes", value=True)
     with c2:
         show_fleet = st.checkbox("Show Emergency Fleet", value=True)
     with c3:
-        show_hospitals = st.checkbox("Show Regional Trauma Centers", value=True)
+        show_hospitals = st.checkbox("Show Trauma Centers", value=True)
+    with c4:
+        live_map_style_choice = st.selectbox(
+            "Layer",
+            ["🗺️ OpenStreetMap (Real)", "🏙️ Carto Positron (Clear)", "🌑 Tactical Dark"],
+            index=0,
+            label_visibility="collapsed",
+            key="live_map_style",
+        )
+    live_active_style = {
+        "🗺️ OpenStreetMap (Real)": "open-street-map",
+        "🏙️ Carto Positron (Clear)": "carto-positron",
+        "🌑 Tactical Dark": "carto-darkmatter",
+    }.get(live_map_style_choice, "open-street-map")
 
     vehicles = get_all_vehicles()
     hospitals = get_all_hospitals()
@@ -853,7 +882,7 @@ def render_live_map(routing_engine):
         margin=dict(l=0, r=0, t=0, b=0),
         height=550,
         map=dict(
-            style="carto-darkmatter",
+            style=live_active_style,
             center=dict(lat=28.595, lon=77.215),
             zoom=11.8,
         ),

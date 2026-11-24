@@ -1,7 +1,14 @@
 import { Incident, Vehicle, Hospital, Dispatch, BedReservation, User, KPISummary } from './types';
 
-export const API_BASE = 'http://localhost:8000';
-export const WS_BASE = 'ws://localhost:8000/ws/telemetry';
+export const API_BASE =
+  typeof window !== 'undefined' && window.location.origin && !window.location.origin.includes('localhost:5173')
+    ? window.location.origin
+    : 'http://localhost:8000';
+
+export const WS_BASE =
+  typeof window !== 'undefined' && window.location.host
+    ? `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws/telemetry`
+    : 'ws://localhost:8000/ws/telemetry';
 
 function getAuthHeader(): Record<string, string> {
   const token = localStorage.getItem('roadsos_token');

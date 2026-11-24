@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
   AlertTriangle, PhoneCall, ShieldAlert, MapPin, Send,
-  Camera, CheckCircle2, Navigation, Clock, Info, Globe, ChevronRight, Activity
+  Camera, CheckCircle2, Navigation, Clock, Info, Globe, ChevronRight, Activity,
+  Brain, Sparkles
 } from 'lucide-react';
 import { EmergencyMap } from '../components/EmergencyMap';
-import { apiReportIncident, apiGetIncidents } from '../api';
+import { apiReportIncident, apiGetIncidents, apiAIAnalyze } from '../api';
 import { Incident } from '../types';
 
 export const PublicApp: React.FC = () => {
@@ -22,6 +23,26 @@ export const PublicApp: React.FC = () => {
   const [isLocating, setIsLocating] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionSuccess, setSubmissionSuccess] = useState<Incident | null>(null);
+
+  // AI Assistant State
+  const [isAiAnalyzing, setIsAiAnalyzing] = useState(false);
+  const [aiTriagePreview, setAiTriagePreview] = useState<any | null>(null);
+
+  const handleAIQuickTriage = async () => {
+    if (!witnessStatement.trim()) return;
+    setIsAiAnalyzing(true);
+    try {
+      const res = await apiAIAnalyze(witnessStatement);
+      setAiTriagePreview(res);
+      if (res.category) setCategory(res.category);
+      if (res.vehicle_count) setVehiclesCount(res.vehicle_count);
+      if (res.reported_casualties !== undefined) setCasualtiesCount(res.reported_casualties);
+    } catch (e) {
+      console.warn('AI Triage error', e);
+    } finally {
+      setIsAiAnalyzing(false);
+    }
+  };
 
   // Tracking State
   const [trackIncidentId, setTrackIncidentId] = useState('');
@@ -398,7 +419,7 @@ export const PublicApp: React.FC = () => {
                 placeholder={t.descPlaceholder}
                 className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-cyan-500"
               />
-              {/* Quick Tags */}
+              {/* Quick Tags & AI Auto-Triage */}
               <div className="flex flex-wrap gap-1.5 pt-1">
                 {t.quickTags.map((tag) => (
                   <button
@@ -410,6 +431,41 @@ export const PublicApp: React.FC = () => {
                     + {tag}
                   </button>
                 ))}
+              </div>
+
+              {/* AI Auto-Triage Button & Inline Analysis Preview */}
+              <div className="pt-1.5 space-y-2">
+                <button
+                  type="button"
+                  onClick={handleAIQuickTriage}
+                  disabled={isAiAnalyzing || !witnessStatement.trim()}
+                  className="w-full flex items-center justify-center gap-2 py-2 rounded-xl bg-gradient-to-r from-purple-950/80 via-indigo-950/80 to-purple-950/80 hover:from-purple-900 hover:to-indigo-900 border border-purple-800/80 text-purple-300 font-bold text-xs transition active:scale-98 disabled:opacity-50"
+                >
+                  <Brain className={`w-3.5 h-3.5 text-purple-400 ${isAiAnalyzing ? 'animate-spin' : ''}`} />
+                  <span>{isAiAnalyzing ? 'Analyzing with Zero-Shot AI...' : '✨ Run Real-Time AI Auto-Triage'}</span>
+                </button>
+
+                {aiTriagePreview && (
+                  <div className="bg-purple-950/40 border border-purple-800/60 p-3 rounded-xl space-y-2 text-xs animate-in fade-in">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-purple-300 flex items-center gap-1.5">
+                        <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                        AI Category: <strong>{aiTriagePreview.category}</strong>
+                      </span>
+                      <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-red-950 text-red-400 border border-red-800 font-bold">
+                        Urgency {aiTriagePreview.urgency_index?.toFixed(1)}/10
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-300 font-mono leading-relaxed">
+                      {aiTriagePreview.explanation}
+                    </p>
+                    <div className="flex items-center gap-2 text-[10px] text-purple-300/80 border-t border-purple-900/60 pt-1.5 font-mono">
+                      <span>✓ Auto-Applied: 🚗 {aiTriagePreview.vehicle_count} Cars</span>
+                      <span>🩺 {aiTriagePreview.reported_casualties} Injured</span>
+                      <span>⏱️ SLA: ≤{aiTriagePreview.golden_hour_sla_min}m</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 

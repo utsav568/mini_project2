@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { PublicApp } from './apps/PublicApp';
 import { DriverApp } from './apps/DriverApp';
 import { HospitalApp } from './apps/HospitalApp';
-import { ShieldAlert, Ambulance, Building2, Monitor, Radio, ExternalLink } from 'lucide-react';
+import { AICopilotApp } from './apps/AICopilotApp';
+import { ShieldAlert, Ambulance, Building2, Monitor, Radio, ExternalLink, Brain } from 'lucide-react';
 import { API_BASE } from './api';
 
 export const App: React.FC = () => {
-  const [activeApp, setActiveApp] = useState<'public' | 'driver' | 'hospital'>('public');
+  const [activeApp, setActiveApp] = useState<'public' | 'ai' | 'driver' | 'hospital'>('public');
   const [backendHealthy, setBackendHealthy] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -52,6 +53,18 @@ export const App: React.FC = () => {
           >
             <ShieldAlert className="w-3.5 h-3.5" />
             <span>Public SOS</span>
+          </button>
+
+          <button
+            onClick={() => setActiveApp('ai')}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+              activeApp === 'ai'
+                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-950'
+                : 'text-slate-400 hover:text-purple-300'
+            }`}
+          >
+            <Brain className="w-3.5 h-3.5 text-purple-400" />
+            <span>AI Copilot</span>
           </button>
 
           <button
@@ -105,6 +118,7 @@ export const App: React.FC = () => {
       {/* Render Selected App Component */}
       <div className="flex-1">
         {activeApp === 'public' && <PublicApp />}
+        {activeApp === 'ai' && <AICopilotApp />}
         {activeApp === 'driver' && <DriverApp />}
         {activeApp === 'hospital' && <HospitalApp />}
       </div>

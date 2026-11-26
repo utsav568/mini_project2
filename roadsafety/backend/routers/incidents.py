@@ -7,7 +7,9 @@ and evidence attachment endpoints.
 
 import os
 import json
+import secrets
 import time
+import uuid
 from datetime import datetime
 from typing import Optional, List
 from pathlib import Path
@@ -38,8 +40,17 @@ EVIDENCE_DIR = BASE_DIR / "data" / "evidence"
 EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def generate_incident_id() -> str:
-    return f"INC-{datetime.utcnow().strftime('%Y%m%d')}-{int(time.time() % 10000):04d}"
+def generate_incident_id(db: Optional[Session] = None) -> str:
+    today = datetime.utcnow().strftime('%Y%m%d')
+    for _ in range(20):
+        rand_code = secrets.randbelow(90000) + 10000
+        candidate = f"INC-{today}-{rand_code}"
+        if db is not None:
+            if not db.query(Incident).filter(Incident.incident_id == candidate).first():
+                return candidate
+        else:
+            return candidate
+    return f"INC-{today}-{uuid.uuid4().hex[:6].upper()}"
 
 
 @router.post("", response_model=IncidentResponse)
@@ -85,7 +96,7 @@ async def report_incident(
     snapped_node = _routing_engine.find_nearest_node(payload.latitude, payload.longitude)
     landmark = _routing_engine.get_node_label(snapped_node)
 
-    inc_id = generate_incident_id()
+    inc_id = generate_incident_id(db)
     reasoning = (
         f"AI classified as '{category}' with Urgency Index {urgency_index:.2f}/10.00 ({severity}). "
         f"Detected {veh_count} vehicles and {cas_count} casualties. "

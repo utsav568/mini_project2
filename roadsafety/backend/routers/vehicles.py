@@ -196,16 +196,22 @@ async def handle_driver_action(
         if inc:
             inc.status = "On Scene"
     elif action == "transporting":
+        dsp.status = "Transporting Patient"
         dsp.dispatch_notes = "Transporting Patient to Hospital"
         if veh:
             veh.status = "Transporting Patient"
+        if inc:
+            inc.status = "Rescue in Progress"
         if payload.destination_hospital_id:
             dsp.destination_hospital_id = payload.destination_hospital_id
     elif action == "at_hospital":
+        dsp.status = "At Hospital"
         dsp.dispatch_notes = "Arrived at Hospital"
         dsp.at_hospital_at = now
         if veh:
             veh.status = "At Hospital"
+        if inc:
+            inc.status = "Rescue in Progress"
     elif action == "complete":
         dsp.status = "Completed"
         dsp.completed_at = now

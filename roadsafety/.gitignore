@@ -7,6 +7,8 @@ __pycache__/
 venv/
 *.egg-info/
 dist/
+!frontend/dist/
+!frontend/dist/**
 build/
 .DS_Store
 *.log

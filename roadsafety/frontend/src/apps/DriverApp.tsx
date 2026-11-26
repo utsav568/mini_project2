@@ -100,9 +100,9 @@ export const DriverApp: React.FC = () => {
     }
   };
 
-  const handleAction = async (action: string, reason?: string) => {
+  const handleAction = async (action: string, reason?: string, hospitalId?: number) => {
     try {
-      await apiDriverAction(action, reason);
+      await apiDriverAction(action, reason, hospitalId);
       await loadActiveDispatch();
     } catch (err: any) {
       alert(err.message || `Failed to execute ${action}`);

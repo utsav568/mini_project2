@@ -10,8 +10,10 @@ from __future__ import annotations
 import json
 import logging
 import os
+import secrets
 import shutil
 import time
+import uuid
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -27,9 +29,19 @@ _triage_engine = IntelligentTriageEngine()
 _routing_engine = GraphRoutingEngine(seed=42)
 
 
-def generate_incident_id() -> str:
-    """Generate a collision-free sequential/timestamped incident ID."""
-    return f"INC-{datetime.now().strftime('%Y%m%d')}-{int(time.time() % 10000):04d}"
+def generate_incident_id(cursor=None) -> str:
+    """Generate a collision-free sequential/randomized incident ID with uniqueness check."""
+    today = datetime.now().strftime('%Y%m%d')
+    for _ in range(20):
+        rand_code = secrets.randbelow(90000) + 10000
+        candidate = f"INC-{today}-{rand_code}"
+        if cursor is not None:
+            cursor.execute("SELECT 1 FROM incidents WHERE incident_id = ?", (candidate,))
+            if not cursor.fetchone():
+                return candidate
+        else:
+            return candidate
+    return f"INC-{today}-{uuid.uuid4().hex[:6].upper()}"
 
 
 def create_incident(
@@ -89,12 +101,11 @@ def create_incident(
     snapped_node = _routing_engine.find_nearest_node(latitude, longitude)
     landmark = _routing_engine.get_node_label(snapped_node)
 
-    incident_id = generate_incident_id()
-    sensor_json = json.dumps(sensor_payload) if sensor_payload else "{}"
-
     # 4. Save to Database
     with get_db_connection() as conn:
         cursor = conn.cursor()
+        incident_id = generate_incident_id(cursor)
+        sensor_json = json.dumps(sensor_payload) if sensor_payload else "{}"
         cursor.execute("""
         INSERT INTO incidents (
             incident_id, witness_name, witness_phone, witness_statement,

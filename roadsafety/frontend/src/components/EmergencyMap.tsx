@@ -41,15 +41,20 @@ export const EmergencyMap: React.FC<EmergencyMapProps> = ({
         zoomControl: true,
       });
 
-      // Real-World OpenStreetMap Tiles
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors',
+      // Real-World Street Map Tiles (OpenStreetMap Standard - 100% Free, No API Key)
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         maxZoom: 19,
       }).addTo(map);
 
       const markerLayer = L.layerGroup().addTo(map);
       markerLayerRef.current = markerLayer;
       mapInstanceRef.current = map;
+
+      // Invalidate map size after DOM mount
+      setTimeout(() => {
+        map.invalidateSize();
+      }, 250);
 
       if (pickable) {
         map.on('click', (e: L.LeafletMouseEvent) => {
@@ -141,8 +146,18 @@ export const EmergencyMap: React.FC<EmergencyMapProps> = ({
       }).addTo(map);
       routeLayerRef.current = polyline;
       map.fitBounds(polyline.getBounds(), { padding: [40, 40] });
+    } else if (selectedLocation) {
+      map.setView(selectedLocation, zoom || 14);
+    } else if (center) {
+      map.setView(center, zoom || 12);
     }
-  }, [vehicles, hospitals, incidents, selectedLocation, routeCoords]);
+
+    setTimeout(() => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.invalidateSize();
+      }
+    }, 150);
+  }, [vehicles, hospitals, incidents, selectedLocation, routeCoords, center, zoom]);
 
   return (
     <div className="relative w-full rounded-xl overflow-hidden border border-slate-800" style={{ height }}>
